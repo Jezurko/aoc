@@ -1,16 +1,16 @@
-fatelfs = [0, 0, 0]
+fatelves = [0, 0, 0]
 open( "input.txt" ) do file
     elf = 0
     for ln in eachline( file )
         if ( isempty( ln ) )
-            global fatelfs
-            thinelf = argmin( fatelfs )
-            fatelfs[ thinelf ] = max( elf, fatelfs[ thinelf ] )
+            global fatelves
+            thinelf = argmin( fatelves )
+            fatelves[ thinelf ] = max( elf, fatelves[ thinelf ] )
             elf = 0
         else
             elf += parse( Int, ln )
         end
     end
 end
-println( fatelfs )
-println( sum( fatelfs ) )
+println( fatelves )
+println( sum( fatelves ) )
