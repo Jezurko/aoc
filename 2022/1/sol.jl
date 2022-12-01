@@ -3,7 +3,6 @@ open( "input.txt" ) do file
     elf = 0
     for ln in eachline( file )
         if ( isempty( ln ) )
-            global fatelves
             thinelf = argmin( fatelves )
             fatelves[ thinelf ] = max( elf, fatelves[ thinelf ] )
             elf = 0
