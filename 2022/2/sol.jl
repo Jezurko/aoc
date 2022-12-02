@@ -1,11 +1,9 @@
-using Mods
-
 function play(x, y)
-    res = value( Mod{3}( x - y ) )
+    res = mod1( x - y, 3 )
     res != 2 ? res == 1 ? 2 : 1 : 0
 end
 
-find(x, y) = y == 0 ? value( Mod{3}( x - 1 ) ) : y == 1 ? x : ( x + 1 ) % 3
+find(x, y) = y == 0 ? mod1( x, 3 ) - 1 : y == 1 ? x : ( x + 1 ) % 3
 
 function rockpaperscissors()
     strategy = map.( x -> ( Int( x[begin] ) - 64 ) % 23 - 1,
