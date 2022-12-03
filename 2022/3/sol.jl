@@ -1,30 +1,20 @@
-function find_letter( str )
-    middle = div( length( str ), 2 )
-    for (i, c) in enumerate( str[begin : middle] )
-        if ( findnext( c, str, middle + 1 ) != nothing )
-            return c
-        end
-    end
+function split_in_half( string )
+    middle = length( string ) ÷ 2
+    (string[begin : middle ], string[middle + 1 : end ])
 end
 
-function find_tri_letter( strings )
-    for c in strings[1]
-        if ( occursin( string( c ), strings[2] ) && occursin( string( c ), strings[3] ) )
-            return c
-        end
-    end
-end
+get_priority( c ) = islowercase( c ) ? Int( c ) - Int( 'a' ) + 1 : Int( c ) - Int( 'A' ) + 27
 
-convert_char( c ) = islowercase( c ) ? Int( c ) - Int( 'a' ) + 1 : Int( c ) - Int( 'A' ) + 27
+score_common_char( strings ) = sum( get_priority, mapreduce( Set, ∩, strings ) )
 
-sum_rucksack() =
-    sum( convert_char.( find_letter.( split( chomp( read( "input.txt", String ) ), "\n" ) ) ) )
+sum_rucksacks() =
+    sum( score_common_char.( split_in_half.( split( chomp( read( "input.txt", String ) ), "\n" ) ) ) )
 
 read_tripples() =
     reshape( split( chomp( read( "input.txt", String ) ), "\n" ), 3, : )
 
 sum_badges() =
-    sum( convert_char.( find_tri_letter.( eachcol( read_tripples() ) ) ) )
+    sum( score_common_char.( eachcol( read_tripples() ) ) )
 
-println( "part1: ", sum_rucksack() )
+println( "part1: ", sum_rucksacks() )
 println( "part2: ", sum_badges() )
