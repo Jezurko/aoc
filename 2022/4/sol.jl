@@ -5,7 +5,7 @@ pairs() = split.( split( input, "\n" ), "," )
 
 make_ranges( pair ) = map( x->parse( Int, x[begin] ) : parse( Int, x[end] ), split.( pair, "-" ) )
 
-check_subset2(pair) = any( x->issubset( x... ), pair |> make_ranges |> permutations )
+check_subset2(pair) = any( x->⊆( x... ), pair |> make_ranges |> permutations )
 
 function check_subset( pair )
     sets = make_ranges( pair )
