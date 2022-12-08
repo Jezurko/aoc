@@ -40,7 +40,7 @@ end
 function check_forest( f, line_f)
     rows = []
     for row ∈ eachrow( trees )
-        push!( rows, map( f,  line_f( row, true ), line_f( row, false) ))
+        push!( rows, map( f,  line_f( row, true ), line_f( row, false) ) )
     end
     rows = reduce( hcat, rows )
     res = []
@@ -52,4 +52,4 @@ function check_forest( f, line_f)
 end
 
 println( sum( sum.( check_forest( |, check_line) ) ) )
-println( max( max.( check_forest( *, view_line )... )... ) )
+println( maximum( maximum.( check_forest( *, view_line ) ) ) )
