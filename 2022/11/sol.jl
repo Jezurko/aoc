@@ -34,13 +34,7 @@ function parse_monkey( description )
     return monkey( items, op, test, true_tgt, false_tgt, 0 )
 end
 
-function create_monkeys( monkeys_str )
-    monkeys = []
-    for monkey_str ∈ monkeys_str
-        push!( monkeys, parse_monkey( monkey_str ) )
-    end
-    return monkeys
-end
+create_monkeys( monkeys_str ) =  parse_monkey.( monkeys_str )
 
 function play( rounds, monkeys, div )
     multi = lcm(map( x->x.test, monkeys ))
