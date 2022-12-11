@@ -18,11 +18,7 @@ function parse_monkey( description )
         if startswith( line, "  Operation:" )
             equation = split( line, "=" )[end]
             rhs = tryparse( Int, split( equation, ['*', '+'] )[end] )
-            if contains( equation , '+' )
-                f = +
-            else
-                f = *
-            end
+            f = contains( equation , '+' ) ? (+) : (*)
             op = rhs === nothing ? x -> f( x, x ) : x -> f( x, rhs )
         end
         if startswith( line, "  Test:" )
