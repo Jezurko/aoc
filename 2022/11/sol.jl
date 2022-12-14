@@ -54,5 +54,5 @@ end
 
 get_insp( monkeys ) = map( x->x.inspections, monkeys )
 
-println( prod( partialsort( play( 20, create_monkeys( monkeys ), 3 ) |> get_insp, 1:2; rev = true ) ) )
-println( prod( partialsort( play( 10000, create_monkeys( monkeys ), 1 ) |> get_insp, 1:2; rev = true ) ) )
+partialsort( play( 20, create_monkeys( monkeys ), 3 ) |> get_insp, 1:2; rev = true ) |> prod |> println
+partialsort( play( 10000, create_monkeys( monkeys ), 1 ) |> get_insp, 1:2; rev = true ) |> prod |> println
