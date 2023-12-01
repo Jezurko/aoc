@@ -13,7 +13,7 @@ fn replace_digits(input: &str) -> String {
             "one" => "1e".to_string(),
             "two" => "2o".to_string(),
             "three" => "3e".to_string(),
-            "four" => "4f".to_string(),
+            "four" => "4r".to_string(),
             "five" => "5e".to_string(),
             "six" => "6x".to_string(),
             "seven" => "7n".to_string(),
