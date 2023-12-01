@@ -8,18 +8,18 @@ fn get_lines(file: &str) -> String {
 
 fn replace_digits(input: &str) -> String {
     let digits = Regex::new(r"(one|two|three|four|five|six|seven|eight|nine)").unwrap();
-    let replace_digits = |cap: &Captures| -> String {
+    let replace_digits = |cap: &Captures| -> &str {
         match &cap[0] {
-            "one" => "1e".to_string(),
-            "two" => "2o".to_string(),
-            "three" => "3e".to_string(),
-            "four" => "4r".to_string(),
-            "five" => "5e".to_string(),
-            "six" => "6x".to_string(),
-            "seven" => "7n".to_string(),
-            "eight" => "8t".to_string(),
-            "nine" => "9e".to_string(),
-            _ => "".to_string()
+            "one" => "1e",
+            "two" => "2o",
+            "three" => "3e",
+            "four" => "4r",
+            "five" => "5e",
+            "six" => "6x",
+            "seven" => "7n",
+            "eight" => "8t",
+            "nine" => "9e",
+            _ => ""
         }
     };
     let replaced = digits.replace_all(input, replace_digits).to_string();
