@@ -22,8 +22,8 @@ fn replace_digits(input: &str) -> String {
             _ => ""
         }
     };
-    let replaced = digits.replace_all(input, replace_digits).to_string();
-    return digits.replace_all(replaced.as_str(), replace_digits).to_string();
+    let replaced = digits.replace_all(input, replace_digits);
+    return digits.replace_all(&replaced, replace_digits).to_string();
 }
 
 fn load_ints(input: &str) -> Vec< isize > {
@@ -33,7 +33,7 @@ fn load_ints(input: &str) -> Vec< isize > {
         .map(|line|{
             let first_digit = re.find(line).unwrap().as_str();
             let rev = line.chars().rev().collect::< String >();
-            let last_digit = re.find(rev.as_str()).unwrap().as_str();
+            let last_digit = re.find(&rev).unwrap().as_str();
             let digits = [first_digit, last_digit].join("");
             return digits.parse::< isize >().unwrap()
         })
@@ -41,8 +41,8 @@ fn load_ints(input: &str) -> Vec< isize > {
 }
 
 fn main() {
-   let sum: isize = load_ints(get_lines("inputs/day1.txt").as_str()).iter().sum();
+   let sum: isize = load_ints(&get_lines("inputs/day1.txt")).iter().sum();
    println!("{}", sum);
-   let sum2: isize = load_ints(replace_digits(get_lines("inputs/day1.txt").as_str()).as_str()).iter().sum();
+   let sum2: isize = load_ints(&replace_digits(&get_lines("inputs/day1.txt"))).iter().sum();
    println!("{}", sum2);
 }
