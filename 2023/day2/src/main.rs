@@ -9,22 +9,19 @@ fn get_pulls(game: &str) -> Vec< &str > { game.split(':').collect::< Vec< &str >
 
 enum Colour {red, green, blue}
 
-lazy_static! { static ref red_re:   Regex = Regex::new(r".* ([0-9]+) red.*").unwrap(); }
-lazy_static! { static ref green_re: Regex = Regex::new(r".* ([0-9]+) green.*").unwrap(); }
-lazy_static! { static ref blue_re:  Regex = Regex::new(r".* ([0-9]+) blue.*").unwrap(); }
-
 fn get_colour(pull: &str, colour: Colour) -> isize
 {
-    let res= match colour {
+    lazy_static! { static ref red_re:   Regex = Regex::new(r".* ([0-9]+) red.*").unwrap(); }
+    lazy_static! { static ref green_re: Regex = Regex::new(r".* ([0-9]+) green.*").unwrap(); }
+    lazy_static! { static ref blue_re:  Regex = Regex::new(r".* ([0-9]+) blue.*").unwrap(); }
+    match match colour {
         Colour::red   => red_re.captures(pull),
         Colour::green => green_re.captures(pull),
         Colour::blue  => blue_re.captures(pull),
-    };
-    let x = match res {
+    } {
         Some(res) => res.get(1).unwrap().as_str().parse::< isize >().unwrap(),
         None      => 0
-    };
-    return x;
+    }
 }
 
 fn sum_games(file: &str) -> isize
