@@ -36,6 +36,6 @@ fn load_ints(input: &str) -> Vec< isize > {
 }
 
 fn main() {
-   println!("{}", load_ints(&get_lines("inputs/day1.txt")).iter().sum::< isize >());
-   println!("{}", load_ints(&replace_digits(&get_lines("inputs/day1.txt"))).iter().sum::< isize >());
+   println!("{}", load_ints(&get_lines("inputs/day01.txt")).iter().sum::< isize >());
+   println!("{}", load_ints(&replace_digits(&get_lines("inputs/day01.txt"))).iter().sum::< isize >());
 }

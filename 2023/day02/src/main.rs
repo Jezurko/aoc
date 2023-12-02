@@ -56,6 +56,6 @@ fn powers_sum(file: &str) -> isize { get_file(file).lines().map(|x|find_minimal_
 
 fn main()
 {
-    println!("{}", sum_games("inputs/day2.txt"));
-    println!("{}", powers_sum("inputs/day2.txt"));
+    println!("{}", sum_games("inputs/day02.txt"));
+    println!("{}", powers_sum("inputs/day02.txt"));
 }
