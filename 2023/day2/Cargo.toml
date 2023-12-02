@@ -1,5 +1,5 @@
 [package]
-name = "aoc"
+name = "day2"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,9 +7,3 @@ edition = "2021"
 
 [dependencies]
 regex = "1.10.2"
-
-[workspace]
-members = [
-    "day1",
-    "day2"
-]
