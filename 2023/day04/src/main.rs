@@ -23,8 +23,9 @@ fn process_card(card: &str) -> usize
 fn part1(cards: Vec< &str >) -> isize
 {
     cards.iter()
-         .map(|x| process_card(x))
-         .map(|x| if x > 0 { 2_isize.pow(u32::try_from(x).unwrap() - 1) } else { 0 })
+         .map(|x| process_card(x) as u32)
+         .filter(|&x| x > 0)
+         .map(|x| 2_isize.pow(x - 1))
          .sum::< isize >()
 }
 
@@ -33,7 +34,7 @@ fn part2(cards: Vec< &str >) -> isize
     let mut total = 0;
     let mut copies_q = VecDeque::< isize >::new();
     for card in cards {
-        let copies = if copies_q.len() > 0 { copies_q.pop_front().unwrap() } else { 1 };
+        let copies = copies_q.pop_front().unwrap_or(1);
         total = total + copies;
         let won_cards = process_card(card);
         if won_cards > copies_q.len() {
@@ -41,7 +42,6 @@ fn part2(cards: Vec< &str >) -> isize
         }
         for i in 0..won_cards {
             copies_q[i] = copies_q[i] + copies;
-
         }
     }
     return total;
