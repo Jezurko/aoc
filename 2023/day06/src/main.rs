@@ -12,7 +12,10 @@ fn parse_nums(input: &str) -> Vec< isize >
     NUM.find_iter(input).map(|num| num.as_str().parse::< isize >().unwrap()).collect()
 }
 
-fn wins(time: isize, dist: isize) -> isize { (0..time).filter(|t| t * (time - t) > dist).count() as isize }
+fn wins(time: isize, dist: isize) -> isize {
+    for t in 0..time { if t * (time - t) > dist { return time - 2 * t + 1 }; }
+    return 0;
+}
 fn part1(lines: Vec< &str >) -> isize {
     zip(parse_nums(lines[0]), parse_nums(lines[1])).map(|(t, d)| { wins(t, d)}).product()
 }
