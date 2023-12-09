@@ -1,22 +1,11 @@
 [package]
-name = "aoc"
+name = "day09"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+itertools = "0.12.0"
+lazy_static = "1.4.0"
 regex = "1.10.2"
-
-[workspace]
-members = [
-    "day01",
-    "day02",
-    "day03",
-    "day04",
-    "day05",
-    "day06",
-    "day07",
-    "day08",
-    "day09"
-]
