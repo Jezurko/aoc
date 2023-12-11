@@ -10,12 +10,13 @@ fn get_char_lines(input: &str) -> Vec< Vec< char > > {
 fn manhattan((x1, y1): &(usize, usize), (x2, y2): &(usize, usize),
              empty_rows: &Vec< bool >, empty_cols: &Vec< bool >, scale: usize
 ) -> usize {
-    x1.abs_diff(*x2)
-    + empty_rows[cmp::min(*x1, *x2)..cmp::max(*x1, *x2)]
-                .into_iter().fold(0, |acc, &x| if x {acc + scale - 1} else { acc })
-    + y1.abs_diff(*y2)
-    + empty_cols[cmp::min(*y1, *y2)..cmp::max(*y1, *y2)]
-                .into_iter().fold(0, |acc, &x| if x {acc + scale - 1} else { acc })
+    let (x_min, x_max) = (cmp::min(*x1, *x2), cmp::max(*x1, *x2));
+    let (y_min, y_max) = (cmp::min(*y1, *y2), cmp::max(*y1, *y2));
+    let empty_count = |line: &Vec< bool >, min: usize, max: usize| {
+        line[min..max].iter().fold(0,  |acc, &x| if x { acc + 1 } else { acc })
+    };
+    x_max - x_min + y_max - y_min
+    + (empty_count(empty_rows, x_min, x_max) + empty_count(empty_cols, y_min, y_max)) * (scale - 1)
 }
 
 fn is_empty_col(map: &Vec< Vec< char > >, y: usize) -> bool {
