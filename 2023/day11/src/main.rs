@@ -1,5 +1,6 @@
 use std::fs::read_to_string;
 use std::cmp;
+use itertools::Itertools;
 
 fn get_file(file: &str) -> String { read_to_string(file).expect("invalid file") }
 fn get_char_lines(input: &str) -> Vec< Vec< char > > {
@@ -26,25 +27,20 @@ fn is_empty_row(map: &Vec< Vec< char > >, x: usize) -> bool {
 }
 
 fn find_galaxies(map: &Vec< Vec< char > >) -> Vec< (usize, usize) > {
-    let mut galaxies = Vec::< (usize, usize) >::new();
-    for x in 0..map.len() {
-        for y in 0..map[x].len() {
-            if map[x][y] == '#' { galaxies.push((x, y)) };
-        }
-    }
-    return galaxies;
+    map.iter().enumerate()
+       .map(|(x, line)| line.iter()
+                        .enumerate()
+                        .filter(|&(_, &c)| c == '#')
+                        .map(move |(y, _)| (x, y)))
+       .flatten().collect::< Vec< (usize, usize) > >()
 }
 
 fn solve(galaxies: &Vec< (usize, usize) >,
          empty_rows: &Vec< bool >, empty_cols: &Vec< bool >, scale: usize
 ) -> usize {
-    let mut sum = 0;
-    for i in 0..galaxies.len() {
-        for j in i+1..galaxies.len() {
-            sum = sum + manhattan(&galaxies[i], &galaxies[j], &empty_rows, &empty_cols, scale);
-        }
-    }
-    return sum;
+    galaxies.iter().tuple_combinations()
+            .map(|(galaxy_1, galaxy_2)| manhattan(&galaxy_1, &galaxy_2, &empty_rows, &empty_cols, scale))
+            .sum()
 }
 
 fn main() {
