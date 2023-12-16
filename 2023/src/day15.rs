@@ -1,4 +1,5 @@
 use std::{ fs::read_to_string, collections::HashMap };
+use aoc::{ vecpp::* };
 
 fn get_file(file: &str) -> String { read_to_string(file).expect("invalid file") }
 
@@ -31,7 +32,7 @@ fn part2(sequence: &str) -> usize {
             let splits = cmd.split('-').collect::< Vec< &str > >();
             let label = splits[0];
             let hash = hash(label);
-            if let Some(ix) = box_ixs[hash].iter().position(|&x| x == label) {
+            if let Some(ix) = box_ixs[hash].find(&label) {
                 box_ixs[hash].remove(ix);
                 boxes[hash].remove(label);
             }
