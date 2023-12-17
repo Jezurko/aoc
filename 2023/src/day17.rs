@@ -25,7 +25,7 @@ fn succs((row, col): (isize, isize),
                         DIR::R => {((row, col + 1), dir)},
                         DIR::D => {((row + 1, col), dir)},
                         DIR::L => {((row, col - 1), dir)},})
-        .filter(|&((c, r), _)| { map.in_bounds(c) && map[0].in_bounds(r) })
+        .filter(|&((r, c), _)| { map.in_bounds(r) && map[0].in_bounds(c) })
         .collect()
 }
 
@@ -41,21 +41,21 @@ fn cheapest_path(start: (isize, isize),
                  map: &Vec< Vec< isize > >,
 ) -> isize
 {
-    let mut solved: HashSet< ((isize, isize), isize, DIR) > = HashSet::new();
+    let mut solved: HashSet< State > = HashSet::new();
     let mut queue: PriorityQueue< State, Reverse< isize > > = PriorityQueue::new();
     queue.push(State{ pos: start, dir: DIR::R, steps: 0 }, Reverse(0));
     let end = (map.len() as isize - 1, map[0].len() as isize - 1);
 
-    while let Some((State{pos, dir, steps}, cost)) = queue.pop() {
-        if solved.contains(&(pos, steps, dir)) { continue; }
-        solved.insert((pos, steps, dir));
-        if pos == end { return cost.0; }
-        for (pos, d) in succs(pos, dir, steps, bounds, map) {
-            queue.push(State{ pos: pos,
-                              dir: d,
-                              steps: if d == dir { steps + 1 } else { 1 }
-                            },
-                       Reverse(cost.0 + map.at(pos.0).at(pos.1))
+    while let Some((s, Reverse(cost))) = queue.pop() {
+        if solved.contains(&s) { continue; }
+        solved.insert(s);
+        let (pos, dir, steps) = (s.pos, s.dir, s.steps);
+        if pos == end { return cost; }
+        for (p, d) in succs(pos, dir, steps, bounds, map) {
+            queue.push_increase(State{ pos: p,
+                                       dir: d,
+                                       steps: if d == dir { steps + 1 } else { 1 } },
+                       Reverse(cost + map.at(p.0).at(p.1))
             );
         }
     }
