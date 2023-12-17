@@ -5,6 +5,10 @@ pub trait Vecpp< T > {
     where
         I: TryInto< isize > + TryInto< usize > + Copy;
 
+    fn at_mut< I >(&mut self, index: I) -> &mut T
+    where
+        I: TryInto< isize > + TryInto< usize > + Copy;
+
     fn in_bounds< I >(&self, index: I) -> bool
     where
         I: TryInto< isize > + TryInto< usize > + Copy;
@@ -24,6 +28,17 @@ impl< T > Vecpp< T > for Vec< T > {
             panic!("Out of bounds!");
         }
         return &self[TryInto::< usize >::try_into(index).unwrap_or(0)];
+    }
+
+    fn at_mut< I >(&mut self, index: I) -> &mut T
+    where
+        I: TryInto< isize > + TryInto< usize > + Copy
+    {
+        if !(self.in_bounds(index))
+        {
+            panic!("Out of bounds!");
+        }
+        return &mut self[TryInto::< usize >::try_into(index).unwrap_or(0)];
     }
 
     fn in_bounds< I >(&self, index: I) -> bool

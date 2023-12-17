@@ -12,6 +12,7 @@ lazy_static = "1.4.0"
 map-macro = "0.2.6"
 memoize = "0.4.1"
 num = "0.4.1"
+priority-queue = "1.3.2"
 regex = "1.10.2"
 
 [lib]
@@ -81,3 +82,7 @@ path = "src/day15.rs"
 [[bin]]
 name = "day16"
 path = "src/day16.rs"
+
+[[bin]]
+name = "day17"
+path = "src/day17.rs"
