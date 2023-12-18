@@ -1,5 +1,12 @@
 use std::fs::read_to_string;
 
+pub fn get_lines(file: &str) -> Vec< String > {
+    read_to_string(file).expect("invalid file")
+        .lines()
+        .map(|x| x.to_string())
+        .collect::< Vec< String > >()
+}
+
 pub fn get_map(file: &str) -> Vec< Vec< char > > {
     read_to_string(file).expect("invalid file")
         .lines()
